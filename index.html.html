@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman Kelulusan SMAN 17 Garut 2025</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      padding: 2rem;
+      color: #333;
+      margin: 0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    input {
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+    }
+    .status-lulus { color: green; font-weight: bold; }
+    .status-tidak { color: red; font-weight: bold; }
+    .download-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: green;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+      h2, h3 {
+        font-size: 1.2rem;
+      }
+      input, button, .download-link {
+        width: 100%;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Logo_SMAN_17_Garut.png" alt="Logo Sekolah" class="logo">
+    <h2>Pengumuman Kelulusan</h2>
+    <h3>SMAN 17 Garut - Tahun 2025</h3>
+    <p>Masukkan NISN Anda:</p>
+    <input type="text" id="nisn" placeholder="Contoh: 0054285633">
+    <br>
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const dataSiswa = {
+      "0054285633": { nama: "ADRIAN MUCHAMAD IKHSAN", status: "LULUS" },
+      "0053205184": { nama: "AI LATIPAH", status: "TIDAK LULUS" },
+      "0046585649": { nama: "AJAH SITI RAHAYU", status: "LULUS" },
+    };
+
+    function cekKelulusan() {
+      const nisn = document.getElementById("nisn").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (dataSiswa[nisn]) {
+        const siswa = dataSiswa[nisn];
+        const statusClass = siswa.status === "LULUS" ? "status-lulus" : "status-tidak";
+        let html = `
+          <p>Nama: <strong>${siswa.nama}</strong></p>
+          <p>Status Kelulusan: <span class="${statusClass}">${siswa.status}</span></p>
+        `;
+        if (siswa.status === "LULUS") {
+          html += `<a class="download-link" href="surat/${nisn}.pdf" download>Download Surat Kelulusan</a>`;
+        }
+        resultDiv.innerHTML = html;
+      } else {
+        resultDiv.innerHTML = `<p style="color: orange;">NISN tidak ditemukan. Periksa kembali.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
